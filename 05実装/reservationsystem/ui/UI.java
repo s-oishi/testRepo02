@@ -134,7 +134,7 @@ public class UI {
 	public int reserveEnd() {
 		String line;
 		System.out.println("予約が完了しました。");
-		System.out.println("チケット一覧に戻る");
+		System.out.println("メニューに戻る");
 		System.out.print("0を入力してください:");
 		line = readLine();
 		while(line == null) {
@@ -146,7 +146,7 @@ public class UI {
 	public int cancelEnd() {
 		String line;
 		System.out.println("キャンセルが完了しました。");
-		System.out.println("予約一覧に戻る");
+		System.out.println("メニューに戻る");
 		System.out.print("0を入力してください:");
 		line = readLine();
 		while(line == null) {

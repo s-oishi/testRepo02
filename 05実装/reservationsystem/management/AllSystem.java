@@ -102,12 +102,14 @@ public class AllSystem {
 			}
 		}
 		
-		ui.checkCancel();
-		
-		boolean flag2 = reservationSystem.cancel(reservationNo);
-		if(flag2 == true) {
-			ui.cancelEnd();
+		if(ui.checkCancel()==true) {
+			boolean flag2 = reservationSystem.cancel(reservationNo);
+			if(flag2 == true) {
+				ui.cancelEnd();
+			}
 		}
+
+
 	}
 	
 	

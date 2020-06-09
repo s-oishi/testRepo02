@@ -44,7 +44,7 @@ public class ReservationList {
 		List<Reservation> mamberReservationList = new ArrayList<Reservation>();
 		for (Reservation reservation : reservationList.values()) {
 			Member member = reservation.searchMember();
-			if (member.getID() == id) {
+			if ((member.getID()).equals(id)) {
 				mamberReservationList.add(reservation);
 			}
 		}

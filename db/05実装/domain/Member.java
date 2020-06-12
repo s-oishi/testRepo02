@@ -2,17 +2,21 @@ package domain;
 
 public class Member {
 	private String id;
-	private String passward;
+	private String password;
 	private String memberName;
 
+	public Member() {
+		
+	}
+	
 	public Member(String id, String passward, String name) {
 		this.id = id;
-		this.passward = passward;
+		this.password = passward;
 		this.memberName = name;
 	}
 
 	public String getPass() {
-		return passward;
+		return password;
 	}
 
 	public String getMemberName() {
@@ -22,4 +26,19 @@ public class Member {
 	public String getID() {
 		return id;
 	}
+	
+	
+	public void setID(String id) {
+		this.id = id;
+	}
+	
+	public void setPass(String pass) {
+		this.password = pass;
+	}
+	
+	public void setMemberName(String name) {
+		this.memberName = name;
+	}
+	
+	
 }

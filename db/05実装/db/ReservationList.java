@@ -29,7 +29,6 @@ public class ReservationList {
 	public ReservationList() {
 	}
 
-	// TODO
 	public void reserve(Ticket ticket, Member member, int sheetsNo) {
 		reservationNo += 1;
 		
@@ -41,6 +40,7 @@ public class ReservationList {
 		int no = ticket.getTicketNumber();
 		String tname = ticket.getTicketName();
 		
+		//予約の作成
 		String sql = "INSERT INTO reservationlist VALUES (" + reservationNo + ",'" + reservationday + "', "
 				+ sheetsNo + ", '" + id + "', '" + name + "', " + no
 				+ ",'" + tname + "');";
@@ -49,6 +49,20 @@ public class ReservationList {
 			
 			ps.executeUpdate(sql);
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//在庫の修正
+		String stock = "UPDATE ticketlist SET stock = (stock - " + sheetsNo + " ) WHERE ticketnumber = " + no
+				+ ";";
+		try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				PreparedStatement ps = connection.prepareStatement(stock)) {
+
+				ps.executeUpdate(stock);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -70,19 +84,19 @@ public class ReservationList {
 
 	// 予約の削除
 	public void removeReservationNo(int reservationNo) {
-		String sql = "SELECT reservationsheetsnumber, ticketnumber FROM reservationlist WHERE reservationnumber="
-				+ reservationNo + ";";
 		int ticketNo = 0;
 		int sheetsNo = 0;
 
 		// チケット情報の取得
+		String sql = "SELECT reservationsheetsnumber, ticketnumber FROM reservationlist WHERE reservationnumber="
+				+ reservationNo + ";";
 		try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 
 			try (ResultSet rs = ps.executeQuery(sql)) {
 				rs.next();
-				ticketNo = rs.getInt(1);
-				sheetsNo = rs.getInt(2);
+				sheetsNo = rs.getInt(1);
+				ticketNo = rs.getInt(2);
 
 			}
 		} catch (SQLException e) {
@@ -90,9 +104,13 @@ public class ReservationList {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//TODO 消す
+		System.out.println("sheetsno" + sheetsNo);
+		System.out.println("Ticketno" + ticketNo);
 
 		// 在庫書き換え
-		String stock = "UPDATE ticketlist SET stock = (stock - " + sheetsNo + " ) WHERE ticketnumber = " + ticketNo
+		String stock = "UPDATE ticketlist SET stock = (stock + " + sheetsNo + " ) WHERE ticketnumber = " + ticketNo
 				+ ";";
 		try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(stock)) {
@@ -105,6 +123,7 @@ public class ReservationList {
 			e.printStackTrace();
 		}
 
+		//予約の削除
 		String delete = "DELETE FROM reservationlist WHERE reservationnumber = " + reservationNo + ";";
 		try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(delete)) {

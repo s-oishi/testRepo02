@@ -1,0 +1,68 @@
+MySQL 8.0 Command Line Clientを開く
+pssward:masterkey でログイン
+
+・データベース作成
+create database shock_db;
+
+・使用するデータベースの指定
+use shock_db;
+
+・テーブル作成
+create table memberlist(
+id varchar(10) not null primary key,
+passward varchar(10) not null,
+membername varchar(10) not null,
+index membername_index(membername),
+index id_index(id)
+);
+
+create table ticketlist(
+ticketnumber int not null primary key,
+ticketname varchar(20) not null,
+price int not null,
+day varchar(10) not null,
+stock int not null,
+index ticketnumber_index(ticketnumber),
+index ticketname_index(ticketname)
+);
+
+create table reservationlist(
+reservationnumber int not null primary key,
+reservationday varchar(10) not null,
+reservationsheetsnumber int not null,
+id varchar(10) not null,
+membername varchar(10) not null,
+ticketnumber int not null ,
+ticketname varchar(20) not null,
+constraint id_index
+foreign key (id)
+references memberlist(id)
+on delete cascade on update cascade,
+constraint membername_index
+foreign key (membername)
+references memberlist (membername)
+on delete cascade on update cascade,
+constraint ticketnumber_index
+foreign key (ticketnumber) 
+references ticketlist (ticketnumber)
+on delete cascade on update cascade,
+constraint ticketname_index
+foreign key (ticketname) 
+references ticketlist (ticketname)
+on delete cascade on update cascade);
+
+・データ追加
+insert into memberlist values("abc","123","田中太郎");
+insert into memberlist values("def","456","田中太郎");
+insert into memberlist values("ghi","789","佐藤二朗");
+
+insert into ticketlist values(01,"東京ランド",5000,"2020-07-07",100);
+insert into ticketlist values(02,"大阪パーク",4000,"2020-08-08",80);
+insert into ticketlist values(03,"横浜ポート",3000,"2020-06-06",50);
+
+(参考)
+・テーブル情報確認
+show create table memberlist;
+
+・テーブル内の情報表示
+select * from ticketlist;

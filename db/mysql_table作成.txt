@@ -28,7 +28,7 @@ index ticketname_index(ticketname)
 
 create table reservationlist(
 reservationnumber int not null primary key,
-reservationday varchar(10) not null,
+reservationday varchar(20) not null,
 reservationsheetsnumber int not null,
 id varchar(10) not null,
 membername varchar(10) not null,

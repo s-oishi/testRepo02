@@ -23,9 +23,10 @@ public class TicketShowGUI extends JFrame implements ActionListener {
     private GUI gui;
     private Ticket[] ticketList; 
     private MenuGUI select;
-    private static TicketShowGUI ticketShowGUI = new TicketShowGUI();
+    //private static TicketShowGUI ticketShowGUI = new TicketShowGUI();
     // コンストラクタ
-    private TicketShowGUI(){
+    //TODO
+    public /*private*/ TicketShowGUI(){
     	allsystem = AllSystem.getAllSystemInstance();
     	ticketList = allsystem.indicateAllTicketInfo();
             mainFrame = new JFrame("全チケット情報閲覧画面");
@@ -36,7 +37,9 @@ public class TicketShowGUI extends JFrame implements ActionListener {
             addButtonList = new JButton[ticketList.length];
             for(int i = 0; i<ticketList.length;i++) {
             	Ticket t = ticketList[i];
-            	JButton addButton = new JButton(t.getTicketNumber() + ":" + t.getTicketName() + "," + t.getPrice() + "円" + "," + t.getDay() );//+ "," +t.getStock() + "枚" );
+            	//TODO
+            	System.out.println("ボタン生成時のチケット番号：" + t.getTicketNumber());
+            	JButton addButton = new JButton(t.getTicketNumber() + ":" + t.getTicketName() + "," + t.getPrice() + "円" + "," + t.getDay() + "," +t.getStock() + "枚" );
             	
             	addButtonList[i] = addButton;
             	addButtonList[i].addActionListener(new ActionListener(){
@@ -44,6 +47,7 @@ public class TicketShowGUI extends JFrame implements ActionListener {
         				allsystem = AllSystem.getAllSystemInstance();
         					gui = GUI.getViewInstance();
         					ReservationGUI reservationGUI = new ReservationGUI(t);
+        					System.out.println("移動する予約画面生成時の引数チケット番号：" + t.getTicketNumber());
         					gui.changeGUI(mainFrame,reservationGUI.getReserveFrame());
         					//オブジェクトごとの予約画面へ遷移するメソッド呼び出し
         			}
@@ -74,7 +78,10 @@ public class TicketShowGUI extends JFrame implements ActionListener {
     }
 
     public static TicketShowGUI getTicketFrameInstance() {
-    	return ticketShowGUI;
+    	//TODO
+    	TicketShowGUI ticketShowGUI;
+		ticketShowGUI = new TicketShowGUI();
+		return ticketShowGUI ;
     }
     
     public JFrame getTicketFrame() {

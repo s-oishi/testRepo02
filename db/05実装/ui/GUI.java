@@ -24,7 +24,8 @@ public class GUI {
 		select = MenuGUI.getSystemSelectInstance();
 		this.systemselectpage = select.getSystemSelectFrame();
 		systemselectpage.setVisible(false);
-		ticketframe = TicketShowGUI.getTicketFrameInstance();
+		//TODO
+		ticketframe = new TicketShowGUI/*.getTicketFrameInstance*/();
 		this.ticketframepage = ticketframe.getTicketFrame();
 		ticketframepage.setVisible(false);
 		
